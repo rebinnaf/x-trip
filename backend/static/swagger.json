@@ -1,0 +1,169 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Trip Experience API",
+    "description": "API for managing trip experiences",
+    "version": "1.0.0"
+  },
+  "basePath": "/api",
+  "schemes": ["http"],
+  "paths": {
+    "/trips": {
+      "get": {
+        "summary": "Get all trips",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "List of trips",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Trip"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new trip",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "trip",
+            "description": "Trip object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TripInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Trip created",
+            "schema": {
+              "$ref": "#/definitions/Trip"
+            }
+          }
+        }
+      }
+    },
+    "/trips/{tripId}": {
+      "parameters": [
+        {
+          "name": "tripId",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "description": "Trip ID"
+        }
+      ],
+      "get": {
+        "summary": "Get a trip by ID",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Trip found",
+            "schema": {
+              "$ref": "#/definitions/Trip"
+            }
+          },
+          "404": {
+            "description": "Trip not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a trip",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "trip",
+            "description": "Trip object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TripInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trip updated",
+            "schema": {
+              "$ref": "#/definitions/Trip"
+            }
+          },
+          "404": {
+            "description": "Trip not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a trip",
+        "responses": {
+          "204": {
+            "description": "Trip deleted"
+          },
+          "404": {
+            "description": "Trip not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Trip": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "transport": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "hotel": {
+          "type": "string"
+        },
+        "attractions": {
+          "type": "string"
+        }
+      }
+    },
+    "TripInput": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "transport": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "hotel": {
+          "type": "string"
+        },
+        "attractions": {
+          "type": "string"
+        }
+      }
+    }
+  }
+} 
